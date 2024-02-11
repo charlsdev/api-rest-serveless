@@ -1,5 +1,5 @@
-import figlet from 'figlet'
 import chalk from 'chalk'
+import figlet from 'figlet'
 
 console.log(
    chalk.greenBright.bold(
@@ -7,9 +7,9 @@ console.log(
          font: 'Slant',
          horizontalLayout: 'fitted',
          verticalLayout: 'default',
-         whitespaceBreak: true
-      })
-   )
+         whitespaceBreak: true,
+      }),
+   ),
 )
 console.log()
 console.log(chalk.redBright.bold(' Author: ') + chalk.whiteBright.italic('charlsdev'))

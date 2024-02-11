@@ -1,4 +1,4 @@
-import argon2 from 'argon2';
+import argon2 from 'argon2'
 
 /**
  * Encripta la contraseña
@@ -6,8 +6,8 @@ import argon2 from 'argon2';
  * @returns string
  */
 export const encryptPassword = async (plainPass: string) => {
-   return await argon2.hash(plainPass);
-};
+   return await argon2.hash(plainPass)
+}
 
 /**
  * Verifica si la contraseña es correcta
@@ -16,5 +16,5 @@ export const encryptPassword = async (plainPass: string) => {
  * @returns boolean
  */
 export const verifyPassword = async (hashPass: string, plainPass: string) => {
-   return await argon2.verify(hashPass, plainPass);
-};
+   return await argon2.verify(hashPass, plainPass)
+}

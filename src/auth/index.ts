@@ -1,21 +1,18 @@
-import { Hono, Context } from "hono"
-import { sign } from "hono/jwt"
-import { getSupabase, supabaseMiddleware } from "../supabase/config"
-import { Bindings } from "../types/bindings"
-import {
-   LoginUser,
-   RegisterUser,
-   validateLogin,
-   validateRegister,
-} from "../utils/validation"
-import { encryptPassword, verifyPassword } from "../utils/hashPassword"
-import { registerUser, verifyUser } from "./service"
+import { Context, Hono } from 'hono'
+import { sign } from 'hono/jwt'
+import { getSupabase, supabaseMiddleware } from '../supabase/config'
+import { Bindings } from '../types/bindings'
+import { encryptPassword, verifyPassword } from '../utils/hashPassword'
+import { LoginUser, RegisterUser, validateLogin, validateRegister } from '../utils/validation'
+import { registerUser, verifyUser } from './service'
 
-export const auth = new Hono<{ Bindings: Bindings }>().basePath("/auth")
+export const auth = new Hono<{
+   Bindings: Bindings
+}>().basePath('/auth')
 
-auth.use("*", supabaseMiddleware)
+auth.use('*', supabaseMiddleware)
 
-auth.post("/login", validateLogin, async (c: Context) => {
+auth.post('/login', validateLogin, async (c: Context) => {
    const { email, password } = await c.req.json<LoginUser>()
 
    const supabase = getSupabase(c)
@@ -39,18 +36,18 @@ auth.post("/login", validateLogin, async (c: Context) => {
 
          return c.json(
             {
-               msg: "Inicio de sesión exitoso ✅",
-               data: token
+               msg: 'Inicio de sesión exitoso ✅',
+               data: token,
             },
-            200
+            200,
          )
       }
    }
 
-   return c.json({ msg: "Credenciales incorrectas ❌", data: null }, 401)
+   return c.json({ msg: 'Credenciales incorrectas ❌', data: null }, 401)
 })
 
-auth.post("/register", validateRegister, async (c: Context) => {
+auth.post('/register', validateRegister, async (c: Context) => {
    const body = await c.req.json<RegisterUser>()
    body.password = await encryptPassword(body.password)
 
@@ -62,6 +59,6 @@ auth.post("/register", validateRegister, async (c: Context) => {
          msg: register.msg,
          data: register.data,
       },
-      register.data ? 200 : 500
+      register.data ? 200 : 500,
    )
 })
