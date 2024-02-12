@@ -7,7 +7,7 @@ export const idTokenContext = 'supabase' // Nombre del contexto para guardar el 
  * Middleware para inicializar el cliente de supabase
  * @param c: Context
  * @param next: MiddlewareHandler
- * @returns
+ * @returns Promise<void>
  */
 export const supabaseMiddleware: MiddlewareHandler = async (c, next) => {
    try {
@@ -33,6 +33,6 @@ export const supabaseMiddleware: MiddlewareHandler = async (c, next) => {
 /**
  * Función para obtener el cliente de supabase
  * @param c: Context
- * @returns
+ * @returns SupabaseClient
  */
 export const getSupabase = (c: Context): SupabaseClient => c.get(idTokenContext) // Obtenemos el cliente de supabase del contexto

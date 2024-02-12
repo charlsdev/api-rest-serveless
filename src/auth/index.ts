@@ -3,8 +3,9 @@ import { sign } from 'hono/jwt'
 import { getSupabase, supabaseMiddleware } from '../supabase/config'
 import { Bindings } from '../types/bindings'
 import { encryptPassword, verifyPassword } from '../utils/hashPassword'
-import { LoginUser, RegisterUser, validateLogin, validateRegister } from '../utils/validation'
+import { LoginUser, RegisterUser, validateLogin, validateRegister } from './validation'
 import { registerUser, verifyUser } from './service'
+import { generateJWT } from '../utils/jwt'
 
 export const auth = new Hono<{
    Bindings: Bindings
@@ -32,7 +33,7 @@ auth.post('/login', validateLogin, async (c: Context) => {
             email: data.email,
          }
 
-         const token = await sign(payload, process.env.JWT_SECRET as string)
+         const token = await generateJWT(payload, process.env.JWT_SECRET!)
 
          return c.json(
             {

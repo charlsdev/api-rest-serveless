@@ -1,5 +1,5 @@
 import { SupabaseClient } from '@supabase/supabase-js'
-import { RegisterUser } from '../utils/validation'
+import { RegisterUser } from './validation'
 
 /**
  * Función para registrar un usuario
@@ -28,10 +28,7 @@ export const verifyUser = async (
    supabase: SupabaseClient,
    email: string,
 ): Promise<{ msg?: string; data: RegisterUser[] | null }> => {
-   const { data, error } = await supabase
-      .from('users')
-      .select()
-      .eq('email', email)
+   const { data, error } = await supabase.from('users').select().eq('email', email)
 
    if (error) return { msg: error.message, data: null }
 

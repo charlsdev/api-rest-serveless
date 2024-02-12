@@ -46,7 +46,7 @@
          "indentWidth": 3,
          "quoteProperties": "asNeeded",
          "lineEnding": "crlf",
-         "lineWidth": 120
+         "lineWidth": 110
       }
    },
    "json": {
